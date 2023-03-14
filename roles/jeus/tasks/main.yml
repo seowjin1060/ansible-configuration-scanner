@@ -1,0 +1,38 @@
+- name: get domain.xml directory
+  find:
+    paths: /
+    recurse: yes
+    file_type: xml
+    patterns: 'domain.xml'
+  register: file
+
+- name: print domain.xml file path
+  debug:
+    msg: "{{ item.path }}"
+  with_items: "{{ file.files }}"
+
+- name: set domain.xml file path as fact
+  ansible.builtin.set_fact:
+    config_dir: "{{ item.path }}"
+  with_items: "{{ file.files }}"
+
+- name: Parse domain.xml
+  xml:
+    path: "{{ config_dir }}"
+    xpath: /listResponse/instance
+    content: attribute
+  register: instance_attributes
+
+
+
+#- name: scanning Jeus Configuration
+
+#- name: scanning WebtoB Configuration
+
+#- name: update configurations
+
+
+      #failed_when:
+      #  - "'FAILED' in console.stderr"
+      #  - '"Error" in console.stdout'
+  #  debug: var=console.stdout_lines

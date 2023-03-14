@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  remote_user: root
+  gather_facts: yes
+  roles:
+    - role: rhel
+
+  set_fact:
+    content_json: "{{ content_xml | xml2json }}"
