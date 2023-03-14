@@ -1,0 +1,8 @@
+- name: get domain.xml directory
+  find:
+    paths: /
+    recurse: yes
+    file_type: xml
+    patterns: 'domain.xml'
+  register: file
+
