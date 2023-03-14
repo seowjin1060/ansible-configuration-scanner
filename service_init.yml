@@ -8,5 +8,3 @@
   roles:
     - role: rhel
 
-  set_fact:
-    content_json: "{{ content_xml | xml2json }}"

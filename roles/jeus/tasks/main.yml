@@ -19,10 +19,13 @@
 - name: Parse domain.xml
   xml:
     path: "{{ config_dir }}"
-    xpath: /listResponse/instance
+    xpath: /
     content: attribute
-  register: instance_attributes
+  register: xmlresp
 
+- name: set converted jeus config as fact
+  set_fact:
+    content_json: "{{ xmlresp| xml2json }}"
 
 
 #- name: scanning Jeus Configuration
