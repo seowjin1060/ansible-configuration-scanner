@@ -5,12 +5,9 @@
   become_method: sudo
   remote_user: root
   gather_facts: yes
-  pre_tasks:
-    - name: Collect facts
-      setup:
   roles:
     - role: rhel
     - role: jeus
-    - role: webtob
+  #  - role: webtob
 
 
