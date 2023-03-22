@@ -11,11 +11,6 @@
     config_dir: "{{ item.path }}"
   with_items: "{{ file.files }}"
 
-- name: display xml file contents
-  set_fact: var="{{ item }}"
-  with_file:
-    - "{{ config_dir }}"
-
 - name: set json converted httpm config as fact
   set_fact:
     content_json: "{{ config_dir | httpm2json }}"
