@@ -1,4 +1,4 @@
-- name: get domain.xml directory
+- name: get http.m directory
   find:
     paths: "/shcsw"
     recurse: yes
@@ -15,7 +15,7 @@
 #    msg: "{{ item.path }}"
 #  with_items: "{{ file.files }}"
 
-- name: set domain.xml file path as fact
+- name: set http.m file path as fact
   ansible.builtin.set_fact:
     config_dir: "{{ item.path }}"
   with_items: "{{ file.files }}"
@@ -25,22 +25,11 @@
   with_file:
     - "{{ config_dir }}"
 
-- name: set json converted jeus config as fact
+- name: set json converted httpm config as fact
   set_fact:
-    content_json: "{{ var | xml2json }}"
+    content_json: "{{ config_dir | httpm2json }}"
 
-- name: print converted domain.xml as json var
+- name: print converted httpm as json var
   debug:
     msg: "{{content_json}}, {{config_dir}}"
 
-#- name: scanning Jeus Configuration
-
-#- name: scanning WebtoB Configuration
-
-#- name: update configurations
-
-
-      #failed_when:
-      #  - "'FAILED' in console.stderr"
-      #  - '"Error" in console.stdout'
-  #  debug: var=console.stdout_lines
