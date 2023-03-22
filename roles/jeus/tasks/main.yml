@@ -21,9 +21,10 @@
   with_items: "{{ file.files }}"
 
 - name: display xml file contents
-  set_fact: var="{{ item }}"
-  with_file:
-    - "{{ config_dir }}"
+  slurp:
+    src: "{{ config_dir }}"
+  register: var
+
 
 - name: set json converted jeus config as fact
   set_fact:
