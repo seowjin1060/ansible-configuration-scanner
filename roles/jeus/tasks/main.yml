@@ -3,7 +3,7 @@
     paths: "/shcsw"
     recurse: yes
     file_type: file
-    patterns: 'http.m'
+    patterns: 'domain.xml'
   register: file
 
 #- name: print domain.xml file path
