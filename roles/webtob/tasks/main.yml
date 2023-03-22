@@ -11,9 +11,24 @@
     config_dir: "{{ item.path }}"
   with_items: "{{ file.files }}"
 
+
+- name: read xml file contents
+  slurp:
+    src: "{{ config_dir }}"
+  register: var
+
+
+- name: set config content as fact
+  set_fact:
+    config_data: "{{ var.content | b64decode }}"
+
+- name : display config file contents
+  debug :
+    msg: "{{ config_data }}"
+
 - name: set json converted httpm config as fact
   set_fact:
-    content_json: "{{ config_dir | httpm2json }}"
+    content_json: "{{ config_data | httpm2json }}"
 
 - name: print converted httpm as json var
   debug:

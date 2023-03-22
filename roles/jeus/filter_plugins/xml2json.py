@@ -1,6 +1,5 @@
 import xmltodict, json
 
-
 class FilterModule(object):
     def filters(self):
         return {
@@ -8,6 +7,6 @@ class FilterModule(object):
         }
 
     def xml2json(self, value):
+        print(value)
         converted_xml = json.dumps(xmltodict.parse(value))
-        print(converted_xml)
         return converted_xml

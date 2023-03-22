@@ -1,20 +1,36 @@
 import json
 
-class FilterModule(object):
 
+class FilterModule(object):
     def filters(self):
         return {
             'httpm2json': self.httpm2json,
         }
 
     def httpm2json(self, value):
-        file = open(value, 'r')
+        #file = open(value, 'r')
         res = {}
-        for line in file:
-            if '*' in line:
-                key = line.replace('*','')
-                res['key'] = []
+        line = ""
+        is_key = False
+        key = ""
+        for letter in value:
+            if '*' in letter:
+                is_key = True
+                continue
+            if letter == '\n':
+                if is_key:
+                    res[key] = []
+                    is_key = False
+                else:
+                    if line == "":
+                        continue
+                    else:
+                        line=line.replace(' ','')
+                        res[key].append(line)
+                        line =""
             else:
-                line = line.rstrip('\n')
-                res['key'].append(line)
+                if is_key:
+                    key += letter
+                else:
+                    line += letter
         return res

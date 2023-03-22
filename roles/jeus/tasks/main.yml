@@ -6,29 +6,29 @@
     patterns: 'domain.xml'
   register: file
 
-#- name: print domain.xml file path
-#  debug:
-#    msg: "{{ file }}"
-#
-#- name: print domain.xml file path
-#  debug:
-#    msg: "{{ item.path }}"
-#  with_items: "{{ file.files }}"
-
 - name: set domain.xml file path as fact
   ansible.builtin.set_fact:
     config_dir: "{{ item.path }}"
   with_items: "{{ file.files }}"
 
-- name: display xml file contents
+- name: read xml file contents
   slurp:
     src: "{{ config_dir }}"
   register: var
 
+- name: set config content as fact
+  set_fact:
+    config_data: "{{ var.content | b64decode }}"
+
+- name: display config file contents
+  debug:
+    msg: "{{ config_data }}" #"{{ config_data }}"
+
 
 - name: set json converted jeus config as fact
   set_fact:
-    content_json: "{{ var.content | xml2json }}"
+    content_json: "{{ config_data | xml2json }}"
+
 
 - name: print converted domain.xml as json var
   debug:
