@@ -28,7 +28,7 @@
 
 - name: set json converted jeus config as fact
   set_fact:
-    content_json: "{{ var | xml2json }}"
+    content_json: "{{ var.content | xml2json }}"
 
 - name: print converted domain.xml as json var
   debug:

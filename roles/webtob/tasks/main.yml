@@ -6,15 +6,6 @@
     patterns: 'http.m'
   register: file
 
-#- name: print domain.xml file path
-#  debug:
-#    msg: "{{ file }}"
-#
-#- name: print domain.xml file path
-#  debug:
-#    msg: "{{ item.path }}"
-#  with_items: "{{ file.files }}"
-
 - name: set http.m file path as fact
   ansible.builtin.set_fact:
     config_dir: "{{ item.path }}"
